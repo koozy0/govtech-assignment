@@ -1,22 +1,43 @@
 const { Router } = require("express");
+const {
+  serverWorks,
+  register,
+  commonStudents,
+  suspend,
+  retrieveForNotifications,
+  notFound
+} = require("../controllers");
 
 const router = Router();
+const apiRouter = Router();
+
+router.get("/", serverWorks);
+router.use("/api", apiRouter);
+router.get("*", notFound);
 
 /**
- * @route       GET /
- * @description Verify server is responding
+ * @route       POST /api/register
+ * @description Register one or more students to a specified teacher
  */
-router.get("/", (req, res) => {
-  res.json({ message: "Server works!" });
-});
+apiRouter.post("/register", register);
 
 /**
- * @route       GET *
- * @description Catch-all route
+ * @route       GET /api/commonstudents
+ * @description Retrieve a list of students common to a given list of teachers
  */
-router.get("*", (req, res) => {
-  res.sendStatus(404);
-});
+apiRouter.get("/commonstudents", commonStudents);
+
+/**
+ * @route       POST /api/suspend
+ * @description Suspend a specified student
+ */
+apiRouter.post("/suspend", suspend);
+
+/**
+ * @route       POST /api/retrievefornotifications
+ * @description Retrieve a list of students who can receive a given notification
+ */
+apiRouter.post("/retrievefornotifications", retrieveForNotifications);
 
 module.exports = {
   router
