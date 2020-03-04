@@ -1,10 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+const compression = require("compression");
 
 const common = [
-  express.json(),
-  express.urlencoded({ extended: true, type: "application/json" }),
-  cors()
+  compression(), // gzip compression
+  cors(), // cross-origin-resource-sharing
+  express.json(), // parse incoming requests with json payloads
+  helmet() // set security-related HTTP response headers
 ];
 
 module.exports = common;
