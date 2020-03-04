@@ -1,62 +1,28 @@
 const { Router } = require("express");
-const {
-  serverWorks,
-  register,
-  commonStudents,
-  suspend,
-  retrieveForNotifications,
-  notFound,
-  methodNotAllowed
-} = require("../controllers");
+const { serverWorks, notFound, methodNotAllowed } = require("../controllers");
+const api = require("./api");
 
 const router = Router();
-const api = Router();
 
 /**
- * @route       POST /api/register
- * @description Register one or more students to a specified teacher
+ * @route       GET /
+ * @description Simple route to check that the server works
  */
-api
-  .route("/register")
-  .post(register)
+router
+  .route("/")
+  .get(serverWorks)
   .all(methodNotAllowed);
 
 /**
- * @route       GET /api/commonstudents
- * @description Retrieve a list of students common to a given list of teachers
+ * Adding the child router
  */
-api
-  .route("/commonstudents")
-  .get(commonStudents)
-  .all(methodNotAllowed);
-
-/**
- * @route       POST /api/suspend
- * @description Suspend a specified student
- */
-api
-  .route("/suspend")
-  .get(suspend)
-  .all(methodNotAllowed);
-
-/**
- * @route       POST /api/retrievefornotifications
- * @description Retrieve a list of students who can receive a given notification
- */
-api
-  .route("/retrievefornotifications")
-  .get(retrieveForNotifications)
-  .all(methodNotAllowed);
+router.use("/api", api);
 
 /**
  * @route       GET *
  * @description Catch all
  */
-api.get("*", notFound);
-
-router.get("/", serverWorks); // simple route to check that the server works
-router.use("/api", api); // child router for api routes
-router.get("*", notFound); // catch-all
+router.get("*", notFound);
 
 module.exports = {
   router
