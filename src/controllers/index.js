@@ -11,11 +11,16 @@ const notFound = (req, res) => {
   res.status(404).json({ message: "Resource not found" });
 };
 
+const methodNotAllowed = (req, res) => {
+  res.status(405).json({ message: "Method not allowed" });
+};
+
 module.exports = {
   commonStudents,
   register,
   retrieveForNotifications,
   suspend,
   serverWorks,
-  notFound
+  notFound,
+  methodNotAllowed
 };

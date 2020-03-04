@@ -5,39 +5,58 @@ const {
   commonStudents,
   suspend,
   retrieveForNotifications,
-  notFound
+  notFound,
+  methodNotAllowed
 } = require("../controllers");
 
 const router = Router();
-const apiRouter = Router();
-
-router.get("/", serverWorks);
-router.use("/api", apiRouter);
-router.get("*", notFound);
+const api = Router();
 
 /**
  * @route       POST /api/register
  * @description Register one or more students to a specified teacher
  */
-apiRouter.post("/register", register);
+api
+  .route("/register")
+  .post(register)
+  .all(methodNotAllowed);
 
 /**
  * @route       GET /api/commonstudents
  * @description Retrieve a list of students common to a given list of teachers
  */
-apiRouter.get("/commonstudents", commonStudents);
+api
+  .route("/commonstudents")
+  .get(commonStudents)
+  .all(methodNotAllowed);
 
 /**
  * @route       POST /api/suspend
  * @description Suspend a specified student
  */
-apiRouter.post("/suspend", suspend);
+api
+  .route("/suspend")
+  .get(suspend)
+  .all(methodNotAllowed);
 
 /**
  * @route       POST /api/retrievefornotifications
  * @description Retrieve a list of students who can receive a given notification
  */
-apiRouter.post("/retrievefornotifications", retrieveForNotifications);
+api
+  .route("/retrievefornotifications")
+  .get(retrieveForNotifications)
+  .all(methodNotAllowed);
+
+/**
+ * @route       GET *
+ * @description Catch all
+ */
+api.get("*", notFound);
+
+router.get("/", serverWorks); // simple route to check that the server works
+router.use("/api", api); // child router for api routes
+router.get("*", notFound); // catch-all
 
 module.exports = {
   router
