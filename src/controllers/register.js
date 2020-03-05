@@ -3,29 +3,33 @@ const models = require("../../models");
 const Student = models.Student;
 const Teacher = models.Teacher;
 
-const register = (req, res, next) => {
+const register = async (req, res, next) => {
   const { teacher: teacherEmail, studentEmails } = req.body;
   console.log(teacherEmail, studentEmails);
 
-  Teacher.findOne({ where: { email: teacherEmail } })
-    .then(teacher => {
-      if (!teacher) {
-        console.log("teacher not found: creating new teacher");
-        return Teacher.create({
-          teacherId: uuid(),
-          email: teacherEmail
-        });
-      } else {
-        console.log("found teacher:", teacher);
-        return teacher;
-      }
-    })
-    .then(teacher => {
-      console.log(teacher);
-    })
-    .catch(err => next(err));
+  try {
+    // const teacher = await Teacher.findOne({ where: { email: teacherEmail } });
 
-  res.json({ message: "register works" });
+    // if (teacher) {
+    //   console.log("Teacher found:");
+    // } else {
+    //   console.log("Teacher not found - creating new teacher");
+    // }
+    // const _teacher = teacher || (await createTeacher(teacherEmail));
+
+    const teacherStudents = await Teacher.findOne({
+      where: { email: teacherEmail },
+      include: [{ model: Student, as: "student" }]
+    });
+
+    res.json({ data: teacherStudents });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const createTeacher = email => {
+  return Teacher.create({ teacherId: uuid(), email });
 };
 
 module.exports = register;

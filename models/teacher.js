@@ -1,18 +1,20 @@
 "use strict";
+const { v4: uuid } = require("uuid");
+
 module.exports = (sequelize, DataTypes) => {
   const Teacher = sequelize.define(
     "Teacher",
     {
-      teacherId: { type: DataTypes.UUID, primaryKey: true },
       email: DataTypes.STRING
     },
     {}
   );
+
+  Teacher.beforeCreate(teacher => (teacher.id = uuid()));
+
   Teacher.associate = function(models) {
-    Teacher.belongsToMany(models.Student, {
-      through: "TeacherStudent",
-      as: "student"
-    });
+    // associations can be defined here
   };
+
   return Teacher;
 };
