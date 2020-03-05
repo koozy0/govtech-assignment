@@ -14,7 +14,7 @@ module.exports = {
       teacherId: {
         type: Sequelize.UUID,
         references: {
-          model: "Teacher",
+          model: "Teachers",
           key: "teacherId"
         },
         allowNull: false,
@@ -24,7 +24,7 @@ module.exports = {
       studentId: {
         type: Sequelize.UUID,
         references: {
-          model: "Student",
+          model: "Students",
           key: "studentId"
         },
         allowNull: false,
