@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   Student.beforeCreate(student => (student.id = uuid()));
 
   Student.associate = function(models) {
-    // associations can be defined here
+    Student.belongsToMany(models.Teacher, {
+      through: "StudentTeacher",
+      as: "students",
+      foreignKey: "studentId",
+      otherKey: "teacherId"
+    });
   };
   return Student;
 };
