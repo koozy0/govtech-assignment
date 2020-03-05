@@ -2,6 +2,8 @@ const commonStudents = require("./common-students");
 const register = require("./register");
 const retrieveForNotifications = require("./retrieve-for-notifications");
 const suspend = require("./suspend");
+const students = require("./students");
+const teachers = require("./teachers");
 
 const serverWorks = (req, res) => {
   res.json({ message: "Server works!" });
@@ -22,5 +24,7 @@ module.exports = {
   suspend,
   serverWorks,
   notFound,
-  methodNotAllowed
+  methodNotAllowed,
+  students,
+  teachers
 };

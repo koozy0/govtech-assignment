@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Teacher = sequelize.define(
     "Teacher",
     {
+      teacherId: { type: DataTypes.UUID, primaryKey: true },
       email: DataTypes.STRING
     },
     {}

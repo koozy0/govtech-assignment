@@ -7,6 +7,8 @@ const {
   notFound,
   methodNotAllowed
 } = require("../controllers");
+const studentRouter = require("./student");
+const teacherRouter = require("./teacher");
 
 const api = Router();
 
@@ -45,6 +47,9 @@ api
   .route("/retrievefornotifications")
   .get(retrieveForNotifications)
   .all(methodNotAllowed);
+
+api.use("/student", studentRouter);
+api.use("/teacher", teacherRouter);
 
 /**
  * @route       GET *

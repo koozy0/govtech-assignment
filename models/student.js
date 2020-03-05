@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Student = sequelize.define(
     "Student",
     {
+      studentId: { type: DataTypes.UUID, primaryKey: true },
       email: DataTypes.STRING,
       suspended: DataTypes.BOOLEAN
     },
