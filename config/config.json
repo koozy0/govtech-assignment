@@ -4,23 +4,20 @@
     "password": "password",
     "database": "develop",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   },
   "test": {
     "username": "test",
     "password": "password",
     "database": "test",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   },
   "production": {
     "username": "production",
     "password": "password",
     "database": "production",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   }
 }

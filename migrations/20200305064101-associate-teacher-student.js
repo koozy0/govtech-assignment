@@ -15,23 +15,21 @@ module.exports = {
         type: Sequelize.UUID,
         references: {
           model: "Teacher",
-          key: "teacherId",
-          as: "teacherId"
+          key: "teacherId"
         },
         allowNull: false,
         onDelete: "CASCADE",
-        onUpdate: "CASCASE"
+        onUpdate: "CASCADE"
       },
       studentId: {
         type: Sequelize.UUID,
         references: {
           model: "Student",
-          key: "studentId",
-          as: "studentId"
+          key: "studentId"
         },
         allowNull: false,
         onDelete: "CASCADE",
-        onUpdate: "CASCASE"
+        onUpdate: "CASCADE"
       }
     });
   },
