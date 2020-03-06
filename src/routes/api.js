@@ -45,7 +45,7 @@ api
  */
 api
   .route("/retrievefornotifications")
-  .get(retrieveForNotifications)
+  .post(retrieveForNotifications)
   .all(methodNotAllowed);
 
 api.use("/student", studentRouter);

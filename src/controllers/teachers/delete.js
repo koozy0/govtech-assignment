@@ -1,7 +1,7 @@
 const db = require("../../db");
 
 const deleteTeacher = (req, res, next) => {
-  db("teacher")
+  db.from("teacher")
     .where("id", req.params.id)
     .delete()
     .then(count => res.json({ rows_deleted: count }))
