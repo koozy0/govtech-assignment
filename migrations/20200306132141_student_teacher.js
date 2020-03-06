@@ -24,6 +24,9 @@ exports.up = function(knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
 
+    // introduce a unique index to 'student_id' + 'teacher_id'
+    table.unique(["student_id", "teacher_id"]);
+
     // add created_at and updated_at columns
     table.timestamps(true, true);
   });

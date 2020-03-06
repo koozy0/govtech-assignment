@@ -4,7 +4,7 @@ const deleteTeacher = (req, res, next) => {
   db("teacher")
     .where("id", req.params.id)
     .delete()
-    .then(rows_deleted => res.json({ rows_deleted }))
+    .then(count => res.json({ rows_deleted: count }))
     .catch(err => next(err));
 };
 
