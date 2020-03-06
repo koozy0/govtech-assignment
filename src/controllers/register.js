@@ -5,8 +5,8 @@ const register = async (req, res, next) => {
 
   try {
     const [teachers, students] = await Promise.all([
-      db("teacher").where("email", teacherEmail),
-      db("student").whereIn("email", studentEmails)
+      db.from("teacher").where("email", teacherEmail),
+      db.from("student").whereIn("email", studentEmails)
     ]);
     const teacher = teachers[0];
 

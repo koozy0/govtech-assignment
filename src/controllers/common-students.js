@@ -2,7 +2,10 @@ const db = require("../db");
 
 const commonStudents = async (req, res, next) => {
   try {
-    const teachers = await db("teacher").whereIn("email", req.query.teacher);
+    const teachers = await db
+      .select("id")
+      .from("teacher")
+      .whereIn("email", req.query.teacher);
     const teacherIds = teachers.map(teacher => teacher.id);
 
     const students = await db

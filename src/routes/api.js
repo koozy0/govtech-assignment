@@ -36,7 +36,7 @@ api
  */
 api
   .route("/suspend")
-  .get(suspend)
+  .post(suspend)
   .all(methodNotAllowed);
 
 /**
