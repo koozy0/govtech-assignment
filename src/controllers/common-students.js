@@ -21,7 +21,7 @@ const commonStudents = async (req, res, next) => {
       )
       .innerJoin("student", "cs.student_id", "id");
 
-    res.json({ students });
+    res.status(200).json({ students });
   } catch (err) {
     next(err);
   }
