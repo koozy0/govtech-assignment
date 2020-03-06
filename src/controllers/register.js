@@ -33,13 +33,13 @@ const register = async (req, res, next) => {
 
     const teacherId = teacher.id;
     const studentIds = students.map(student => student.id);
-    const count = await db("student_teacher").insert(
+    await db("student_teacher").insert(
       studentIds.map(studentId => ({
         student_id: studentId,
         teacher_id: teacherId
       }))
     );
-    res.json({ rows_inserted: count });
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }
