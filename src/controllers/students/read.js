@@ -1,9 +1,16 @@
+const db = require("../../db");
+
 const getAllStudents = (req, res, next) => {
-  res.json({ message: "getAllStudents works" });
+  db("student")
+    .then(students => res.json({ students }))
+    .catch(err => next(err));
 };
 
 const getOneStudent = (req, res, next) => {
-  res.json({ message: "getOneStudent works" });
+  db("student")
+    .where("id", req.params.id)
+    .then(students => res.json({ students }))
+    .catch(err => next(err));
 };
 
 module.exports = { getAllStudents, getOneStudent };
