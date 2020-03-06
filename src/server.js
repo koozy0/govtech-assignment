@@ -5,9 +5,9 @@ const { db, port } = require("./config");
 
 const app = express();
 
-db.authenticate()
-  .then(() => console.log("Database connected"))
-  .catch(err => console.log("Database connection error:", err));
+// db.authenticate()
+//   .then(() => console.log("Database connected"))
+//   .catch(err => console.log("Database connection error:", err));
 
 app
   .use(...middlewares)

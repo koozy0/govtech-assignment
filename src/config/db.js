@@ -1,5 +1,3 @@
-const Sequelize = require("sequelize");
-
 const {
   DB_DATABASE,
   DB_USERNAME,
@@ -9,15 +7,6 @@ const {
   DB_DIALECT
 } = process.env;
 
-const db = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
-  host: DB_HOST,
-  port: DB_PORT,
-  dialect: DB_DIALECT,
-  pool: {
-    max: 5,
-    idle: 30000,
-    acquire: 60000
-  }
-});
+const db = {};
 
 module.exports = db;
