@@ -1,42 +1,19 @@
+const dotenv = require("dotenv");
+const loaded = dotenv.config();
+
+if (!loaded) {
+  throw new Error("Environment variables not loaded");
+}
+
 module.exports = {
   development: {
     client: "mysql",
     connection: {
-      database: "develop",
-      user: "develop",
-      password: "password"
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      directory: __dirname + "/migrations"
-    }
-  },
-
-  staging: {
-    client: "mysql",
-    connection: {
-      database: "staging",
-      user: "username",
-      password: "password"
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      directory: __dirname + "/migrations"
-    }
-  },
-
-  production: {
-    client: "mysql",
-    connection: {
-      database: "production",
-      user: "username",
-      password: "password"
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      database: process.env.DB_DATABASE,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD
     },
     pool: {
       min: 2,
@@ -46,4 +23,40 @@ module.exports = {
       directory: __dirname + "/migrations"
     }
   }
+
+  // staging: {
+  //   client: "mysql",
+  //   connection: {
+  //     host: process.env.DB_HOST,
+  //     port: process.env.DB_PORT,
+  //     database: process.env.DB_DATABASE,
+  //     user: process.env.DB_USERNAME,
+  //     password: process.env.DB_PASSWORD
+  //   },
+  //   pool: {
+  //     min: 2,
+  //     max: 10
+  //   },
+  //   migrations: {
+  //     directory: __dirname + "/migrations"
+  //   }
+  // },
+
+  // production: {
+  //   client: "mysql",
+  //   connection: {
+  //     host: process.env.DB_HOST,
+  //     port: process.env.DB_PORT,
+  //     database: process.env.DB_DATABASE,
+  //     user: process.env.DB_USERNAME,
+  //     password: process.env.DB_PASSWORD
+  //   },
+  //   pool: {
+  //     min: 2,
+  //     max: 10
+  //   },
+  //   migrations: {
+  //     directory: __dirname + "/migrations"
+  //   }
+  // }
 };
