@@ -21,7 +21,34 @@ const getCommonStudents = teachers => {
     .innerJoin("student", "cs.student_id", "id");
 };
 
+const createTeacherIfNotCreated = teacherEmail => {
+  return db.raw(
+    db
+      .from("teacher")
+      .insert({ email: teacherEmail })
+      .toString()
+      .replace(/insert/i, "INSERT IGNORE")
+  );
+};
+
+const createStudentIfNotCreated = studentEmail => {
+  return db.raw(
+    db
+      .from("student")
+      .insert({ email: studentEmail })
+      .toString()
+      .replace(/insert/i, "INSERT IGNORE")
+  );
+};
+
+const getStudents = studentEmails => {
+  return db.from("student").whereIn("email", studentEmails);
+};
+
 module.exports = {
   getTeachers,
-  getCommonStudents
+  getStudents,
+  getCommonStudents,
+  createTeacherIfNotCreated,
+  createStudentIfNotCreated
 };

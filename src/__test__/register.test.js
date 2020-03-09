@@ -22,4 +22,19 @@ describe("Testing POST /api/register", () => {
       });
     expect(res.statusCode).toEqual(204);
   });
+
+  it("Should create new teacher and students", async () => {
+    await request(app)
+      .post("/api/register")
+      .send({
+        teacher: "teacher.new@gmail.com",
+        students: ["student.new@gmail.com"]
+      });
+
+    const res = await request(app)
+      .get("/api/commonstudents")
+      .query({ teacher: "teacher.new@gmail.com" });
+
+    expect(res.body.students).toContain("student.new@gmail.com");
+  });
 });

@@ -1,35 +1,20 @@
 const db = require("../../db");
+const services = require("../../services");
 
 const register = async (req, res, next) => {
   const { teacher: teacherEmail, students: studentEmails } = req.body;
 
   try {
     // insert ignore teacher
-    await db.raw(
-      db
-        .from("teacher")
-        .insert({ email: teacherEmail })
-        .toString()
-        .replace(/insert/i, "INSERT IGNORE")
-    );
+    await services.createTeacherIfNotCreated(teacherEmail);
 
     // insert ignore students
-    await Promise.all(
-      studentEmails.map(studentEmail =>
-        db.raw(
-          db
-            .from("student")
-            .insert({ email: studentEmail })
-            .toString()
-            .replace(/insert/i, "INSERT IGNORE")
-        )
-      )
-    );
+    await Promise.all(studentEmails.map(services.createStudentIfNotCreated));
 
     // select required rows
     const [teachers, students] = await Promise.all([
-      db.from("teacher").where("email", teacherEmail),
-      db.from("student").whereIn("email", studentEmails)
+      services.getTeachers([teacherEmail]),
+      services.getStudents(studentEmails)
     ]);
 
     const teacherId = teachers[0].id;

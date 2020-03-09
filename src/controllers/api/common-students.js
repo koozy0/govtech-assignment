@@ -1,4 +1,3 @@
-const db = require("../../db");
 const services = require("../../services");
 
 const commonStudents = async (req, res, next) => {
@@ -11,7 +10,9 @@ const commonStudents = async (req, res, next) => {
 
     const students = await services.getCommonStudents(teachers);
 
-    res.status(200).json({ students });
+    const _students = students.map(student => student.email);
+
+    res.status(200).json({ students: _students });
   } catch (err) {
     next(err);
   }

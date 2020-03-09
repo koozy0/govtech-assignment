@@ -26,12 +26,7 @@ describe("Testing GET /api/commonstudents", () => {
       .query({ teacher: "teacher.ben@gmail.com" });
 
     expect(res.body.students).toEqual(
-      expect.arrayContaining([
-        {
-          student_id: 2,
-          email: "student.jack@gmail.com"
-        }
-      ])
+      expect.arrayContaining(["student.jack@gmail.com"])
     );
   });
 });
