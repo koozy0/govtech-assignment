@@ -83,6 +83,13 @@ const getNotificationRecipients = (teacherEmail, mentions) => {
     });
 };
 
+const suspendStudent = studentEmail => {
+  return db
+    .update("is_suspended", true)
+    .from("student")
+    .where("email", studentEmail);
+};
+
 module.exports = {
   getTeachers,
   getStudents,
@@ -91,5 +98,6 @@ module.exports = {
   createStudentIfNotCreated,
   registerStudentToTeacher,
   getMentionedStudents,
-  getNotificationRecipients
+  getNotificationRecipients,
+  suspendStudent
 };

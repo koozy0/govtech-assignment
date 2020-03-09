@@ -1,11 +1,8 @@
-const db = require("../../db");
+const services = require("../../services");
 
 const suspend = async (req, res, next) => {
   try {
-    await db
-      .update("is_suspended", true)
-      .from("student")
-      .where("email", req.body.email);
+    await services.suspendStudent(req.body.email);
 
     res.sendStatus(204);
   } catch (err) {
