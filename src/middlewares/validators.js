@@ -24,21 +24,16 @@ const hasMinReqQueryParams = (req, res, next) => {
 // for GET /api/commonstudents
 const hasValidTeacherEmails = async (req, res, next) => {
   try {
-    const query = db.select("id").from("teacher");
+    const teacherEmails = Array.isArray(req.query.teacher)
+      ? req.query.teacher
+      : [req.query.teacher];
 
-    if (Array.isArray(req.query.teacher)) {
-      query.whereIn("email", req.query.teacher);
-    } else {
-      query.where("email", req.query.teacher);
-    }
+    const teachers = await db
+      .select("id")
+      .from("teacher")
+      .whereIn("email", teacherEmails);
 
-    const teachers = await query;
-
-    if (
-      Array.isArray(req.query.teacher)
-        ? teachers.length !== req.query.teacher.length
-        : teachers.length < 1
-    ) {
+    if (teachers.length !== teacherEmails.length) {
       const err = new ServerError(
         UNREGISTERED_TEACHER,
         404,
