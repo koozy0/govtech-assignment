@@ -1,32 +1,17 @@
-const db = require("../../db");
+const services = require("../../services");
 
 const retrieveForNotifications = async (req, res, next) => {
-  const mentions = req.body.notification
-    .match(/@[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)
-    .map(mention => mention.slice(1));
+  const mentions = services.getMentionedStudents(req.body.notification);
 
   try {
-    const _recipients = await db
-      .select("student.email")
-      .from("student")
-      .where("is_suspended", false)
-      .whereIn("email", mentions)
-      .union(function() {
-        this.select("student.email as email")
-          .from("teacher")
-          .where("teacher.email", req.body.teacher)
-          .where("student.is_suspended", false)
-          .innerJoin(
-            "student_teacher",
-            "teacher.id",
-            "student_teacher.teacher_id"
-          )
-          .innerJoin("student", "student.id", "student_teacher.student_id");
-      });
+    const recipients = await services.getNotificationRecipients(
+      req.body.teacher,
+      mentions
+    );
 
-    const recipients = _recipients.map(recipient => recipient.email);
+    const recipientEmails = recipients.map(recipient => recipient.email);
 
-    res.status(200).json({ recipients });
+    res.status(200).json({ recipients: recipientEmails });
   } catch (err) {
     next(err);
   }
