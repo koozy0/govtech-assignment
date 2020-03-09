@@ -36,7 +36,7 @@ touch .env
 
 4. Update the `.env` file with the database configurations, using `.env.example` as the template.
 
-5. Create the database schema for local development (develop).
+5. Create the database schema for local development (develop) and testing (test).
 
 6. Migrate the table definitions:
 
