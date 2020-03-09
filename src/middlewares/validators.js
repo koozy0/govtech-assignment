@@ -1,11 +1,11 @@
-const db = require("../db");
+const db = require('../db');
 const {
   ServerError,
   BAD_REQUEST,
   INVALID_EMAIL,
   UNREGISTERED_STUDENT,
-  UNREGISTERED_TEACHER
-} = require("../types");
+  UNREGISTERED_TEACHER,
+} = require('../types');
 
 // for GET /api/commonstudents
 const hasMinReqQueryParams = (req, res, next) => {
@@ -13,7 +13,7 @@ const hasMinReqQueryParams = (req, res, next) => {
     const err = new ServerError(
       BAD_REQUEST,
       400,
-      "At least one teacher (email) is required."
+      'At least one teacher (email) is required.',
     );
     return next(err);
   }
@@ -29,15 +29,15 @@ const hasValidTeacherEmails = async (req, res, next) => {
       : [req.query.teacher];
 
     const teachers = await db
-      .select("id")
-      .from("teacher")
-      .whereIn("email", teacherEmails);
+      .select('id')
+      .from('teacher')
+      .whereIn('email', teacherEmails);
 
     if (teachers.length !== teacherEmails.length) {
       const err = new ServerError(
         UNREGISTERED_TEACHER,
         404,
-        "One or more teacher emails have not been registered"
+        'One or more teacher emails have not been registered',
       );
       return next(err);
     }
@@ -54,7 +54,7 @@ const hasNotification = (req, res, next) => {
     const err = new ServerError(
       BAD_REQUEST,
       400,
-      "Notification message is required."
+      'Notification message is required.',
     );
     next(err);
   }
@@ -65,7 +65,7 @@ const hasNotification = (req, res, next) => {
 // for POST /api/register
 const hasValidRegisterRequestBody = (req, res, next) => {
   if (!req.body.teacher) {
-    const err = new ServerError(BAD_REQUEST, 400, "Teacher email is required.");
+    const err = new ServerError(BAD_REQUEST, 400, 'Teacher email is required.');
     return next(err);
   }
 
@@ -73,7 +73,7 @@ const hasValidRegisterRequestBody = (req, res, next) => {
     const err = new ServerError(
       BAD_REQUEST,
       400,
-      "Valid students list is required."
+      'Valid students list is required.',
     );
     return next(err);
   }
@@ -83,25 +83,25 @@ const hasValidRegisterRequestBody = (req, res, next) => {
 
 // for POST /api/suspend
 // for POST /api/retrievefornotifications
-const hasValidEmail = (propToCheck = "email") => (req, res, next) => {
+const hasValidEmail = (propToCheck = 'email') => (req, res, next) => {
   if (/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi.test(req.body[propToCheck])) {
     next();
   } else {
-    const err = new ServerError(INVALID_EMAIL, 400, "Invalid email provided.");
+    const err = new ServerError(INVALID_EMAIL, 400, 'Invalid email provided.');
     next(err);
   }
 };
 
 // for POST /api/suspend
 const studentExists = async (req, res, next) => {
-  const students = await db.from("student").where("email", req.body.email);
+  const students = await db.from('student').where('email', req.body.email);
   if (students[0]) {
     next();
   } else {
     const err = new ServerError(
       UNREGISTERED_STUDENT,
       404,
-      "Student with the given email was not found."
+      'Student with the given email was not found.',
     );
     next(err);
   }
@@ -110,17 +110,17 @@ const studentExists = async (req, res, next) => {
 module.exports = {
   commonstudents: {
     hasMinReqQueryParams,
-    hasValidTeacherEmails
+    hasValidTeacherEmails,
   },
   register: {
-    hasValidRegisterRequestBody
+    hasValidRegisterRequestBody,
   },
   suspend: {
-    hasValidEmail: hasValidEmail("email"),
-    studentExists
+    hasValidEmail: hasValidEmail('email'),
+    studentExists,
   },
   retrievefornotifications: {
-    hasValidEmail: hasValidEmail("teacher"),
-    hasNotification
-  }
+    hasValidEmail: hasValidEmail('teacher'),
+    hasNotification,
+  },
 };

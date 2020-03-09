@@ -1,5 +1,5 @@
-const { ServerError } = require("../types");
-const { handleServerError } = require("../utils");
+const { ServerError } = require('../types');
+const { handleServerError } = require('../utils');
 
 const errorHandler = (err, req, res, next) => {
   if (err instanceof ServerError) {

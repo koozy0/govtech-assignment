@@ -1,15 +1,15 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("student", table => {
+  return knex.schema.createTable('student', table => {
     // add an auto incrementing id
     table.increments();
 
     // add columns
     table
-      .string("email")
+      .string('email')
       .notNullable()
       .unique();
     table
-      .boolean("is_suspended")
+      .boolean('is_suspended')
       .notNullable()
       .defaultTo(false);
 
@@ -19,5 +19,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable("student");
+  return knex.schema.dropTable('student');
 };
