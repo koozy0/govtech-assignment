@@ -2,6 +2,7 @@ const { ServerError } = require("../types");
 const { handleServerError } = require("../utils");
 
 const errorHandler = (err, req, res, next) => {
+  // TODO: replace this with a proper logging library
   console.error(err);
 
   if (err instanceof ServerError) {
