@@ -1,8 +1,8 @@
-const { Router } = require("express");
-const { api, notFound, methodNotAllowed } = require("../controllers");
-const studentRouter = require("./student");
-const teacherRouter = require("./teacher");
-const { validators } = require("../middlewares");
+const { Router } = require('express');
+const { api, notFound, methodNotAllowed } = require('../controllers');
+const studentRouter = require('./student');
+const teacherRouter = require('./teacher');
+const { validators } = require('../middlewares');
 
 const apiRouter = Router();
 
@@ -11,7 +11,7 @@ const apiRouter = Router();
  * @description Register one or more students to a specified teacher
  */
 apiRouter
-  .route("/register")
+  .route('/register')
   .post(validators.register.hasValidRegisterRequestBody, api.register)
   .all(methodNotAllowed);
 
@@ -20,11 +20,11 @@ apiRouter
  * @description Retrieve a list of students common to a given list of teachers
  */
 apiRouter
-  .route("/commonstudents")
+  .route('/commonstudents')
   .get(
     validators.commonstudents.hasMinReqQueryParams,
     validators.commonstudents.hasValidTeacherEmails,
-    api.commonStudents
+    api.commonStudents,
   )
   .all(methodNotAllowed);
 
@@ -33,11 +33,11 @@ apiRouter
  * @description Suspend a specified student
  */
 apiRouter
-  .route("/suspend")
+  .route('/suspend')
   .post(
     validators.suspend.hasValidEmail,
     validators.suspend.studentExists,
-    api.suspend
+    api.suspend,
   )
   .all(methodNotAllowed);
 
@@ -46,21 +46,21 @@ apiRouter
  * @description Retrieve a list of students who can receive a given notification
  */
 apiRouter
-  .route("/retrievefornotifications")
+  .route('/retrievefornotifications')
   .post(
     validators.retrievefornotifications.hasValidEmail,
     validators.retrievefornotifications.hasNotification,
-    api.retrieveForNotifications
+    api.retrieveForNotifications,
   )
   .all(methodNotAllowed);
 
-apiRouter.use("/student", studentRouter);
-apiRouter.use("/teacher", teacherRouter);
+apiRouter.use('/student', studentRouter);
+apiRouter.use('/teacher', teacherRouter);
 
 /**
  * @route       GET *
  * @description Catch all
  */
-apiRouter.get("*", notFound);
+apiRouter.get('*', notFound);
 
 module.exports = apiRouter;

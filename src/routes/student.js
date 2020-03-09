@@ -1,16 +1,16 @@
-const { Router } = require("express");
-const { methodNotAllowed, students } = require("../controllers");
+const { Router } = require('express');
+const { methodNotAllowed, students } = require('../controllers');
 
 const router = Router();
 
 router
-  .route("/")
+  .route('/')
   .get(students.getAllStudents)
   .post(students.createStudent)
   .all(methodNotAllowed);
 
 router
-  .route("/:id")
+  .route('/:id')
   .get(students.getOneStudent)
   .put(students.updateStudent)
   .delete(students.deleteStudent)

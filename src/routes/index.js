@@ -1,6 +1,6 @@
-const { Router } = require("express");
-const { serverWorks, notFound, methodNotAllowed } = require("../controllers");
-const apiRouter = require("./api");
+const { Router } = require('express');
+const { serverWorks, notFound, methodNotAllowed } = require('../controllers');
+const apiRouter = require('./api');
 
 const router = Router();
 
@@ -9,21 +9,21 @@ const router = Router();
  * @description Simple route to check that the server works
  */
 router
-  .route("/")
+  .route('/')
   .get(serverWorks)
   .all(methodNotAllowed);
 
 /**
  * Adding the child router
  */
-router.use("/api", apiRouter);
+router.use('/api', apiRouter);
 
 /**
  * @route       GET *
  * @description Catch all
  */
-router.get("*", notFound);
+router.get('*', notFound);
 
 module.exports = {
-  router
+  router,
 };
