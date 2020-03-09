@@ -30,8 +30,6 @@ describe("Testing POST /api/retrievefornotifications", () => {
       notification: "Hello students! @student.rick@gmail.com"
     });
 
-    console.log(res.body.recipients);
-
     expect(res.body.recipients).not.toContain("student.rick@gmail.com");
   });
 
