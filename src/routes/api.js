@@ -21,7 +21,11 @@ apiRouter
  */
 apiRouter
   .route("/commonstudents")
-  .get(api.commonStudents)
+  .get(
+    validators.commonstudents.hasMinReqQueryParams,
+    validators.commonstudents.hasValidTeacherEmails,
+    api.commonStudents
+  )
   .all(methodNotAllowed);
 
 /**

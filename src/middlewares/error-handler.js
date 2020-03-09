@@ -2,7 +2,7 @@ const { ServerError } = require("../types");
 const { handleServerError } = require("../utils");
 
 const errorHandler = (err, req, res, next) => {
-  console.error(err);
+  // console.error(err);
 
   if (err instanceof ServerError) {
     handleServerError(err, res);

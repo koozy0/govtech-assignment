@@ -3,8 +3,55 @@ const {
   ServerError,
   BAD_REQUEST,
   INVALID_EMAIL,
-  STUDENT_NOT_FOUND
+  UNREGISTERED_STUDENT,
+  UNREGISTERED_TEACHER
 } = require("../types");
+
+// for GET /api/commonstudents
+const hasMinReqQueryParams = (req, res, next) => {
+  if (!req.query.teacher) {
+    const err = new ServerError(
+      BAD_REQUEST,
+      400,
+      "At least one teacher (email) is required."
+    );
+    return next(err);
+  }
+
+  next();
+};
+
+// for GET /api/commonstudents
+const hasValidTeacherEmails = async (req, res, next) => {
+  try {
+    const query = db.select("id").from("teacher");
+
+    if (Array.isArray(req.query.teacher)) {
+      query.whereIn("email", req.query.teacher);
+    } else {
+      query.where("email", req.query.teacher);
+    }
+
+    const teachers = await query;
+
+    if (
+      Array.isArray(req.query.teacher)
+        ? teachers.length !== req.query.teacher.length
+        : teachers.length < 1
+    ) {
+      const err = new ServerError(
+        UNREGISTERED_TEACHER,
+        404,
+        "One or more teacher emails have not been registered"
+      );
+      return next(err);
+    }
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
 
 // for POST /api/register
 const hasValidRegisterRequestBody = (req, res, next) => {
@@ -43,7 +90,7 @@ const studentExists = async (req, res, next) => {
   } else {
     console.log("here");
     const err = new ServerError(
-      STUDENT_NOT_FOUND,
+      UNREGISTERED_STUDENT,
       404,
       "Student with the given email was not found."
     );
@@ -52,11 +99,15 @@ const studentExists = async (req, res, next) => {
 };
 
 module.exports = {
-  suspend: {
-    hasValidEmail,
-    studentExists
+  commonstudents: {
+    hasMinReqQueryParams,
+    hasValidTeacherEmails
   },
   register: {
     hasValidRegisterRequestBody
+  },
+  suspend: {
+    hasValidEmail,
+    studentExists
   }
 };
