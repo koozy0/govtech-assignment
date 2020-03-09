@@ -1,60 +1,53 @@
 const { Router } = require("express");
-const {
-  register,
-  commonStudents,
-  suspend,
-  retrieveForNotifications,
-  notFound,
-  methodNotAllowed
-} = require("../controllers");
+const { api, notFound, methodNotAllowed } = require("../controllers");
 const studentRouter = require("./student");
 const teacherRouter = require("./teacher");
 
-const api = Router();
+const apiRouter = Router();
 
 /**
  * @route       POST /api/register
  * @description Register one or more students to a specified teacher
  */
-api
+apiRouter
   .route("/register")
-  .post(register)
+  .post(api.register)
   .all(methodNotAllowed);
 
 /**
  * @route       GET /api/commonstudents
  * @description Retrieve a list of students common to a given list of teachers
  */
-api
+apiRouter
   .route("/commonstudents")
-  .get(commonStudents)
+  .get(api.commonStudents)
   .all(methodNotAllowed);
 
 /**
  * @route       POST /api/suspend
  * @description Suspend a specified student
  */
-api
+apiRouter
   .route("/suspend")
-  .post(suspend)
+  .post(api.suspend)
   .all(methodNotAllowed);
 
 /**
  * @route       POST /api/retrievefornotifications
  * @description Retrieve a list of students who can receive a given notification
  */
-api
+apiRouter
   .route("/retrievefornotifications")
-  .post(retrieveForNotifications)
+  .post(api.retrieveForNotifications)
   .all(methodNotAllowed);
 
-api.use("/student", studentRouter);
-api.use("/teacher", teacherRouter);
+apiRouter.use("/student", studentRouter);
+apiRouter.use("/teacher", teacherRouter);
 
 /**
  * @route       GET *
  * @description Catch all
  */
-api.get("*", notFound);
+apiRouter.get("*", notFound);
 
-module.exports = api;
+module.exports = apiRouter;

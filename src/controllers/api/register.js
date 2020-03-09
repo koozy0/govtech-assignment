@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require("../../db");
 
 const register = async (req, res, next) => {
   const { teacher: teacherEmail, students: studentEmails } = req.body;

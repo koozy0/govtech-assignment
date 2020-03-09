@@ -1,7 +1,4 @@
-const commonStudents = require("./common-students");
-const register = require("./register");
-const retrieveForNotifications = require("./retrieve-for-notifications");
-const suspend = require("./suspend");
+const api = require("./api");
 const students = require("./students");
 const teachers = require("./teachers");
 
@@ -18,13 +15,10 @@ const methodNotAllowed = (req, res) => {
 };
 
 module.exports = {
-  commonStudents,
-  register,
-  retrieveForNotifications,
-  suspend,
+  api,
+  students,
+  teachers,
   serverWorks,
   notFound,
-  methodNotAllowed,
-  students,
-  teachers
+  methodNotAllowed
 };

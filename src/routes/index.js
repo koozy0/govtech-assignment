@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { serverWorks, notFound, methodNotAllowed } = require("../controllers");
-const api = require("./api");
+const apiRouter = require("./api");
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router
 /**
  * Adding the child router
  */
-router.use("/api", api);
+router.use("/api", apiRouter);
 
 /**
  * @route       GET *
