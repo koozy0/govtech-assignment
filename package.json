@@ -10,7 +10,8 @@
     "db:rollback": "npx knex migrate:rollback",
     "db:seed": "npx knex seed:run",
     "db:reset": "npm run db:rollback && npm run db:migrate",
-    "test": "jest"
+    "pretest": "cross-env NODE_ENV=test npx knex migrate:rollback --env=test && npx knex migrate:latest --env=test && npx knex seed:run --env=test",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "keywords": [],
   "author": "Koo Zheng Yu",
@@ -25,6 +26,7 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"

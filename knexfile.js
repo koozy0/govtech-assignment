@@ -11,7 +11,28 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      database: process.env.DB_DATABASE,
+      database: process.env.DB_DATABASE_DEVELOP,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      directory: __dirname + "/migrations"
+    },
+    seeds: {
+      directory: __dirname + "/seeds"
+    }
+  },
+
+  test: {
+    client: "mysql",
+    connection: {
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      database: process.env.DB_DATABASE_TEST,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD
     },
@@ -32,7 +53,7 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      database: process.env.DB_DATABASE,
+      database: process.env.DB_DATABASE_STAGING,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD
     },
@@ -53,7 +74,7 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      database: process.env.DB_DATABASE,
+      database: process.env.DB_DATABASE_PRODUCTION,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD
     },
