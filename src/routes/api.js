@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { api, notFound, methodNotAllowed } = require("../controllers");
 const studentRouter = require("./student");
 const teacherRouter = require("./teacher");
+const { validators } = require("../middlewares");
 
 const apiRouter = Router();
 
@@ -11,7 +12,7 @@ const apiRouter = Router();
  */
 apiRouter
   .route("/register")
-  .post(api.register)
+  .post(validators.register.hasValidRegisterRequestBody, api.register)
   .all(methodNotAllowed);
 
 /**
@@ -29,7 +30,11 @@ apiRouter
  */
 apiRouter
   .route("/suspend")
-  .post(api.suspend)
+  .post(
+    validators.suspend.hasValidEmail,
+    validators.suspend.studentExists,
+    api.suspend
+  )
   .all(methodNotAllowed);
 
 /**
