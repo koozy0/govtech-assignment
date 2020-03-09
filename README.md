@@ -66,6 +66,12 @@ npm run dev
 
 ## Running the tests
 
+Run the following command in the project directory to run the tests:
+
+```bash
+npm run test
+```
+
 ## Routes
 
 ### Main API routes
