@@ -66,7 +66,40 @@ npm run dev
 
 ## Running the tests
 
+## Routes
+
+### Main API routes
+
+| Method | Route                         | Description                                                       |
+| :----- | :---------------------------- | :---------------------------------------------------------------- |
+| POST   | /api/register                 | Register one or more students to a specified teacher              |
+| GET    | /api/commonstudents           | Retrieve students who are registered to all of the given teachers |
+| POST   | /api/suspend                  | Suspend a specified student                                       |
+| POST   | /api/retrievefornotifications | Retrieve a list of students who can receive a given notification  |
+
+### Utility routes - Student
+
+| Method | Route            | Description                                         |
+| :----- | :--------------- | :-------------------------------------------------- |
+| GET    | /api/student     | Retrieve all students                               |
+| GET    | /api/student/:id | Retrieve a student with the given `id`              |
+| POST   | /api/student     | Create a student                                    |
+| PUT    | /api/student/:id | Update the details of a student with the given `id` |
+| DELETE | /api/student/:id | Delete a student with the given `id`                |
+
+### Utility routes - Teacher
+
+| Method | Route            | Description                                         |
+| :----- | :--------------- | :-------------------------------------------------- |
+| GET    | /api/teacher     | Retrieve all teachers                               |
+| GET    | /api/teacher/:id | Retrieve a teacher with the given `id`              |
+| POST   | /api/teacher     | Create a teacher                                    |
+| PUT    | /api/teacher/:id | Update the details of a teacher with the given `id` |
+| DELETE | /api/teacher/:id | Delete a teacher with the given `id`                |
+
 ## Deployment
+
+To be added.
 
 ## Built with
 
