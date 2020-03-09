@@ -6,5 +6,5 @@ const handleServerError = (err, res) => {
 };
 
 module.exports = {
-  handleServerError
+  handleServerError,
 };

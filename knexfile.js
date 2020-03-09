@@ -1,92 +1,92 @@
-const dotenv = require("dotenv");
+const dotenv = require('dotenv');
 const loaded = dotenv.config();
 
 if (!loaded) {
-  throw new Error("Environment variables not loaded");
+  throw new Error('Environment variables not loaded');
 }
 
 module.exports = {
   development: {
-    client: "mysql",
+    client: 'mysql',
     connection: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       database: process.env.DB_DATABASE_DEVELOP,
       user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD
+      password: process.env.DB_PASSWORD,
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      directory: __dirname + "/migrations"
+      directory: __dirname + '/migrations',
     },
     seeds: {
-      directory: __dirname + "/seeds"
-    }
+      directory: __dirname + '/seeds',
+    },
   },
 
   test: {
-    client: "mysql",
+    client: 'mysql',
     connection: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       database: process.env.DB_DATABASE_TEST,
       user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD
+      password: process.env.DB_PASSWORD,
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      directory: __dirname + "/migrations"
+      directory: __dirname + '/migrations',
     },
     seeds: {
-      directory: __dirname + "/seeds"
-    }
+      directory: __dirname + '/seeds',
+    },
   },
 
   staging: {
-    client: "mysql",
+    client: 'mysql',
     connection: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       database: process.env.DB_DATABASE_STAGING,
       user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD
+      password: process.env.DB_PASSWORD,
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      directory: __dirname + "/migrations"
+      directory: __dirname + '/migrations',
     },
     seeds: {
-      directory: __dirname + "/seeds/staging"
-    }
+      directory: __dirname + '/seeds/staging',
+    },
   },
 
   production: {
-    client: "mysql",
+    client: 'mysql',
     connection: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       database: process.env.DB_DATABASE_PRODUCTION,
       user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD
+      password: process.env.DB_PASSWORD,
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      directory: __dirname + "/migrations"
+      directory: __dirname + '/migrations',
     },
     seeds: {
-      directory: __dirname + "/seeds/production"
-    }
-  }
+      directory: __dirname + '/seeds/production',
+    },
+  },
 };

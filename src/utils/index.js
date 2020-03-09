@@ -1,5 +1,5 @@
-const { handleServerError } = require("./handle-error");
+const { handleServerError } = require('./handle-error');
 
 module.exports = {
-  handleServerError
+  handleServerError,
 };
