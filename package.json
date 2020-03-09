@@ -22,8 +22,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.3",
     "knex": "^0.20.11",
-    "mysql": "^2.18.1",
-    "uuid": "^7.0.2"
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "jest": "^25.1.0",
