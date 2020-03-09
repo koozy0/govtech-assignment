@@ -1,17 +1,17 @@
-const api = require("./api");
-const students = require("./students");
-const teachers = require("./teachers");
+const api = require('./api');
+const students = require('./students');
+const teachers = require('./teachers');
 
 const serverWorks = (req, res) => {
-  res.json({ message: "Server works!" });
+  res.json({ message: 'Server works!' });
 };
 
 const notFound = (req, res) => {
-  res.status(404).json({ message: "Resource not found" });
+  res.status(404).json({ message: 'Resource not found' });
 };
 
 const methodNotAllowed = (req, res) => {
-  res.status(405).json({ message: "Method not allowed" });
+  res.status(405).json({ message: 'Method not allowed' });
 };
 
 module.exports = {
@@ -20,5 +20,5 @@ module.exports = {
   teachers,
   serverWorks,
   notFound,
-  methodNotAllowed
+  methodNotAllowed,
 };

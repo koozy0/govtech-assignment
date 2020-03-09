@@ -1,4 +1,4 @@
-const services = require("../../services");
+const services = require('../../services');
 
 const retrieveForNotifications = async (req, res, next) => {
   const mentions = services.getMentionedStudents(req.body.notification);
@@ -6,7 +6,7 @@ const retrieveForNotifications = async (req, res, next) => {
   try {
     const recipients = await services.getNotificationRecipients(
       req.body.teacher,
-      mentions
+      mentions,
     );
 
     const recipientEmails = recipients.map(recipient => recipient.email);

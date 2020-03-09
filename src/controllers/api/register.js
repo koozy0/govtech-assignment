@@ -1,4 +1,4 @@
-const services = require("../../services");
+const services = require('../../services');
 
 const register = async (req, res, next) => {
   const { teacher: teacherEmail, students: studentEmails } = req.body;
@@ -13,7 +13,7 @@ const register = async (req, res, next) => {
     // select required rows
     const [teachers, students] = await Promise.all([
       services.getTeachers([teacherEmail]),
-      services.getStudents(studentEmails)
+      services.getStudents(studentEmails),
     ]);
 
     // register the students to the given teacher
