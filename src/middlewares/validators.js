@@ -8,25 +8,18 @@ const {
 
 // for POST /api/register
 const hasValidRegisterRequestBody = (req, res, next) => {
-  const throwInvalidRequestError = () => {
+  if (!req.body.teacher) {
+    const err = new ServerError(BAD_REQUEST, 400, "Teacher email is required.");
+    return next(err);
+  }
+
+  if (!req.body.students || !Array.isArray(req.body.students)) {
     const err = new ServerError(
       BAD_REQUEST,
       400,
-      "Invalid request body was sent."
+      "Valid students list is required."
     );
     return next(err);
-  };
-
-  if (!req.body.teacher) {
-    throwInvalidRequestError();
-  }
-
-  if (!req.body.students) {
-    throwInvalidRequestError();
-  }
-
-  if (!Array.isArray(req.body.students)) {
-    throwInvalidRequestError();
   }
 
   next();
