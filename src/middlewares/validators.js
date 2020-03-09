@@ -48,6 +48,20 @@ const hasValidTeacherEmails = async (req, res, next) => {
   }
 };
 
+// for POST /api/retrievefornotifications
+const hasNotification = (req, res, next) => {
+  if (!req.body.notification) {
+    const err = new ServerError(
+      BAD_REQUEST,
+      400,
+      "Notification message is required."
+    );
+    next(err);
+  }
+
+  next();
+};
+
 // for POST /api/register
 const hasValidRegisterRequestBody = (req, res, next) => {
   if (!req.body.teacher) {
@@ -68,8 +82,9 @@ const hasValidRegisterRequestBody = (req, res, next) => {
 };
 
 // for POST /api/suspend
-const hasValidEmail = (req, res, next) => {
-  if (/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi.test(req.body.email)) {
+// for POST /api/retrievefornotifications
+const hasValidEmail = (propToCheck = "email") => (req, res, next) => {
+  if (/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi.test(req.body[propToCheck])) {
     next();
   } else {
     const err = new ServerError(INVALID_EMAIL, 400, "Invalid email provided.");
@@ -83,7 +98,6 @@ const studentExists = async (req, res, next) => {
   if (students[0]) {
     next();
   } else {
-    console.log("here");
     const err = new ServerError(
       UNREGISTERED_STUDENT,
       404,
@@ -102,7 +116,11 @@ module.exports = {
     hasValidRegisterRequestBody
   },
   suspend: {
-    hasValidEmail,
+    hasValidEmail: hasValidEmail("email"),
     studentExists
+  },
+  retrievefornotifications: {
+    hasValidEmail: hasValidEmail("teacher"),
+    hasNotification
   }
 };

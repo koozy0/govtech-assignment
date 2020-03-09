@@ -47,7 +47,11 @@ apiRouter
  */
 apiRouter
   .route("/retrievefornotifications")
-  .post(api.retrieveForNotifications)
+  .post(
+    validators.retrievefornotifications.hasValidEmail,
+    validators.retrievefornotifications.hasNotification,
+    api.retrieveForNotifications
+  )
   .all(methodNotAllowed);
 
 apiRouter.use("/student", studentRouter);
